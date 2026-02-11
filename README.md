@@ -6,7 +6,7 @@ RISE-RL（Reasoning Intrinsic Self-Evolving Exploration）项目组官网源码�
 ## 技术栈
 
 - Vue 3 + Vite + TypeScript
-- Vue Router（Hash 路由，适配 Gitee Pages）
+- Vue Router（Hash 路由，适配 Pages 类静态托管）
 - 全量中英双语（默认中文，记忆上次语言）
 - 数据驱动内容结构（负责人/导师/成员/成果/招募）
 
@@ -32,6 +32,20 @@ npm run build
 
 构建产物位于 `dist/`。
 
+## 部署到 GitHub Pages（推荐：Actions 自动部署）
+
+本仓库已内置工作流：`.github/workflows/deploy-pages.yml`。
+
+1. 将代码推送到 GitHub 仓库（默认监听 `main/master`）。
+2. 在 GitHub 仓库进入 `Settings -> Pages`。
+3. `Source` 选择 `GitHub Actions`。
+4. 再次推送一次代码（或在 `Actions` 页面手动运行 `Deploy to GitHub Pages`）。
+5. 发布成功后访问：`https://<你的GitHub用户名>.github.io/<仓库名>/`。
+
+说明：
+- 工作流会自动设置 `VITE_BASE_PATH=/<仓库名>/`，无需手动改 `base`。
+- 当前是 Hash 路由，刷新不会出现 404 路由问题。
+
 ## 部署到 Gitee Pages（组织仓库）
 
 目标路径示例：`https://zgc-webcompetition.gitee.io/RISE-RL/`
@@ -45,7 +59,9 @@ npm run build
 
 ## 路径与 404 说明
 
-- `vite.config.ts` 已配置 `base: '/RISE-RL/'`。
+- `vite.config.ts` 的 `base` 支持自动策略：
+  - GitHub Actions 构建时：自动使用 `/<仓库名>/`。
+  - 本地构建默认：`/RISE-RL/`（可通过 `VITE_BASE_PATH` 覆盖）。
 - 当前使用 Hash 路由，刷新不会触发服务端路由 404。
 - 若改为 History 路由，需额外配置服务端回退规则。
 
@@ -69,5 +85,4 @@ npm run build
 ## 后续建议
 
 1. 完成英文文本人工校对（术语与姓名拼写）。
-2. 根据组织最终仓库名调整 `vite.config.ts` 中的 `base`（若仓库名变化）。
-3. 持续在 `src/data/*.ts` 中维护成果与成员更新。
+2. 持续在 `src/data/*.ts` 中维护成果与成员更新。
