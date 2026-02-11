@@ -1,0 +1,432 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>清华大学用户电子身份服务系统</title>
+	<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	
+<script src="/res/ui/jquery.min.js"></script>
+<script src="/common/public/all-messages.js"></script>
+<script src="/res/ui/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script src="/res/selfservice/noty.common.js"></script>
+<script src="/res/common/js/common.js"></script>
+<script src="/res/common/js/session.js"></script>
+<script src="/res/bootstrap/js/bootstrap.js"></script>
+<script src="/res/bootstrap/js/jquery.browser.js"></script>
+<script src="/res/ui/momentjs/moment.min.js"></script>
+<script src="/res/ui/loading/jquery.showLoading.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+	<script src="/res/bootstrap/js/html5shiv.min.js"></script>
+	<script src="/res/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<script src="/res/ui/react/classnames.js"></script>
+<!-- 
+<script src="/res/ui/react/react.min.js"></script>
+<script src="/res/ui/react/react-dom.min.js"></script>
+<script src="/res/ui/react-bootstrap/react-bootstrap.min.js"></script>
+-->
+<script src="/res/ui/react/react.js"></script>
+<script src="/res/ui/react/react-dom.js"></script>
+<script src="/res/ui/react-bootstrap/react-bootstrap.js"></script>
+
+<script src="/res/react/components.js"></script>
+<script src="/res/selfservice/browser-alert.js"></script>
+<script> $.extend(uidm, {"availableLocales":[{"locale":"zh_CN","display":"中文"},{"locale":"en_US","display":"English"}],"baseUrl":"","requestUrl":"/do/off/ui/auth/login/form/20843963f89b3072788f7fe75a5d9322/0?/thu-oauth/callback?sig=98226701d191a7ae41e3e0d1d41b21c237b2273c1c05854943969ca2f4282ef9d141319f9bc20f2cc17aac6952215045a78b657fe40c775f4dbb23c2399c8c3d71f4ce74b8211fcb4849bacd24f4c0df1108b400333d130be992d1870f851097451f74faab9e5e660fc158a2c4b7d36b15a5fd43ca2bbfcf26045fe40c142ee38b15b2044e0906d5df1e4bfb8008d8fc54738cfc5ecb915e3c111e0fd54f020312c91fded6819f884bb32a81236d06b8b8db720159b5017cc3b45a2d5b9220e5","locale":"zh_CN","authenticated":false,"accountMenu":null}); </script>
+
+
+	<script type="text/javascript" src="/v2/dist/doubleauth/localstorageUtil.js?v=20260207071029"></script>
+	<script type="text/javascript" src="/ui/auth/js/fingerprintUtil.js?v=20260207071029"></script>
+	<link type="text/css" href="/res/bootstrap/css/signin.css?ver=&v=6" rel="stylesheet" />
+	<style>.jumbotron .alert-danger.fade.show{opacity: 1;}</style>
+	<script type="text/javascript" src="/ui/auth/js/QrCode/qrcode.js"></script>
+	<script type="text/javascript" src="/v2/dist/doubleauth/sm2Util.js?v=20260207071029"></script>
+	<script type="text/javascript" src="/v2/dist/doubleauth/userAgentUtil.js?v=20260207071029"></script>
+	<script type="text/javascript">
+		function parseAndConstructUrl(originalUrl) {
+			// 提取appid
+			const appIdMatch = originalUrl.match(/\/form\/([a-f0-9]+)/);
+			const appid = appIdMatch ? appIdMatch[1] : '';
+			// 提取seq
+			const seqMatch = originalUrl.match(/\/form\/[a-f0-9]+\/(\d+)/);
+			const seq = seqMatch ? seqMatch[1] : '0'; // 如果没有seq，则默认为0
+			// 提取selfredirectUri
+			// 匹配从第一个?开始到URL结束的部分
+			const selfredirectUriMatch = originalUrl.match(/\?(.*)/);
+			const selfredirectUri = selfredirectUriMatch ? selfredirectUriMatch[1] : '';
+			// 构造目标URL
+			let targetUrl = '/wechat/getFaceLoginUrl?backserver=yes&appid='+appid+'&seq='+seq+'&thirdPart=true';
+			// 如果selfredirectUri不为空，则拼接
+			if (selfredirectUri) {
+				targetUrl += '&selfredirectUri='+selfredirectUri;
+			}
+
+			return targetUrl;
+		}
+		function isWechatBrowser() {
+			const userAgent = navigator.userAgent.toLowerCase();
+			return userAgent.includes('micromessenger');
+		}
+		const notautologin = "";
+		const enableWeChatLogined = "true";
+		if(isWechatBrowser() && notautologin !== "true" && enableWeChatLogined=="true"){
+			window.location.href = parseAndConstructUrl(window.location.href);
+		}
+
+
+
+		$.extend(uidm, {"ss": {"props": {"pwdAlertThresholdInDays":90,"smsIntervalInSec":60,"smsVericodeExpInMin":3,"smsVericodeExpAfterAttempts":5,"smsVericodeLen":6,"frm":{"alum":{"userTypeWhitelist":["X0031","X0021","X0011"]}}}}});
+		function keyLogin(){
+			if (event.keyCode==13){   //回车键的键值为13
+				doLogin();
+			}
+		}
+		var isCaptchaOk = false;
+		//校验验证码
+		function checkCaptcha(){
+			var captcha = $("#i_code").val();
+			if(captcha.length == 4){
+				var url ="/do/off/ui/auth/login/captcha/"+captcha+"/check";
+				$.ajax({
+					url : url,
+					type : "POST",
+					success : function(resp) {
+						$("#captchaIcon").removeClass("glyphicon-remove").removeClass("glyphicon-ok");
+						if(resp.result =="success"){
+							$("#captchaIcon").addClass("glyphicon-ok");
+							$("#captchaIcon").css("color","green");
+							isCaptchaOk = true;
+						}else{
+							$("#captchaIcon").addClass("glyphicon-remove");
+							$("#captchaIcon").css("color","red");
+						}
+
+						$("#captchaIcon").removeClass("hidden");
+					}
+				});
+			}else if(captcha.length > 4){
+				$("#captchaIcon").removeClass("glyphicon-remove").removeClass("glyphicon-ok");
+				isCaptchaOk = false;
+				$("#captchaIcon").addClass("glyphicon-remove");
+				$("#captchaIcon").css("color","red");
+				$("#captchaIcon").removeClass("hidden");
+			}else if(captcha.length < 4){
+				isCaptchaOk = false;
+				if(!$("#captchaIcon").hasClass("hidden")){
+					$("#captchaIcon").addClass("hidden");
+				}
+			}
+		}
+
+		function refreshCaptcha() {
+
+
+			if(!$("#captchaIcon").hasClass("hidden")){
+				$("#captchaIcon").addClass("hidden");
+			}
+
+			$("#captcha").attr("src", "/captcha.jpg?t="+(new Date().getTime()));
+		}
+
+		function doLogin() {
+			if ($("#i_user").val()=="" || $("#i_user").val()=="用户名") {
+				$("#msg_note").html("请输入用户名");
+				$("#c_note").show();
+				return;
+			}
+			if ($("#i_pass").val()=="" || $("#i_pass").val()=="密码") {
+				$("#msg_note").html("请输入密码");//请输入密码
+				$("#c_note").show();
+				return;
+			}
+			if (!$("#c_code").hasClass("hidden")) {
+				isCaptchaOk = true;
+				if ($("#i_code").val().length!=4 || !isCaptchaOk) {
+					$("#msg_note").html("您输入的验证码不正确");
+					$("#c_note").show();
+					return;
+				}
+			}
+
+			//修改密码加密
+			var publicKey = $("#sm2publicKey").text();
+			var pass = $("#i_pass").val();
+			//$("#sm2pass").val(pass);
+			var encryptPass = sm2Util.doEncryptStr(pass,publicKey);
+			$("#sm2pass").val(encryptPass);
+
+			localstorageUtil.getFinger3FromLocal().then(function(res){
+				$("#fingerGenPrint").val(res)
+				$("#theform").submit();
+			});
+
+
+		}
+
+		$(document).ready(function(){
+			if($("#i_user").val()!=""){
+				$("#i_user").attr("readonly","readonly");
+			}
+			refreshCaptcha();
+
+			//处理检验验证码的兼容问题
+			$("#i_code").bind('propertychange', function() {
+				checkCaptcha();
+			});
+
+			$("#i_code").bind('input', function() {
+				checkCaptcha();
+			});
+
+			
+			
+			
+			
+
+			
+
+			
+			
+			
+		});
+	</script>
+	<link type="text/css" href="/ui/activation/css/reset.css" rel="stylesheet" />
+<link type="text/css" href="/ui/activation/css/index.css?v=4" rel="stylesheet" />
+<link type="text/css" href="/res/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link type="text/css" href="/res/common/css/bootstrap-custom.css?ver=" rel="stylesheet" />
+<link type="text/css" href="/res/common/fonts/iconfont.css" rel="stylesheet" />
+<link type="text/css" href="/res/ui/loading/showLoading.css" rel="stylesheet">
+
+	<link type="text/css" href="/res/bootstrap/css/signin.css?ver=&v=6"	rel="stylesheet" />
+	<style type="text/css">
+		@media screen and (max-width:720px) {
+			.container {
+				width: 100%;
+			}
+			.header {
+				width: 100%;
+			}
+			.jumbotron{
+				width: 100%;
+			}
+			.jumbotron h2{
+				font-size: 24px;
+			}
+			.jumbotron h3{
+				font-size: 20px;
+			}
+			.dttab h3{font-size: 17px;}
+		}
+
+		/*@media screen and (min-width:720px) {
+            .container {
+                width: 60%;
+            }
+        }*/
+		.eng_cn{position: absolute;right: 20px;top: 20px;color: #2E2E3F;font-size: 16px;}
+		.eng_cn .a_lik{color: #2E2E3F;cursor: pointer;display: none;}
+		.eng_cn .a_lik:hover, .eng_cn .a_lik:active, .eng_cn .a_lik:focus{text-decoration: none;}
+		.glyphicon-globe{vertical-align: top;margin-top: 3px;}
+		.jumbotron.new h2{font-size: 23px;}
+		@media screen and (max-width: 600px) {
+			.mainwrap2{background-size: contain;margin-bottom: 20px;height: 60px;}
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="header">
+		<div class="mainwrap2"></div>
+	</div>
+	<div class="container font">
+		<div class='jumbotron new'>
+
+			<div class="eng_cn">
+				<span aria-hidden="true" class="glyphicon glyphicon-globe"></span>
+				<a class="a_lik" id="locale_zhongwen" onclick="changeLanguage(id)">中文</a>
+				<a class="a_lik" id="locale_english" onclick="changeLanguage(id)">English</a>
+				<form action="/f/common/public/locale/change" method="POST" id="locale-form">
+					<input type="hidden" name="target" value="" id="locale-url"/>
+					<input type="hidden" name="locale" value="" id="locale-locale" />
+				</form>
+				<input id="eng_cnlanguage" value="zh_CN" type="hidden" />
+			</div>
+
+
+
+
+
+
+
+			<h2>清华大学用户电子身份服务系统</h2>
+			<h3>您即将登录&nbsp;&nbsp;<i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;WEBVPN</h3>
+			<p id="c_note" style="display:none;"><img src="/ui/auth/images/error.gif" width="15" height="15" class="mr5">
+				<span id="msg_note" class="red">
+						
+							
+							
+							
+							
+							
+								您的用户名或密码不正确，请重试！
+							
+						
+
+					</span>
+			</p>
+			<div class="wxBox active" style="margin-top: 0">
+				<div class="dttab" style="margin-top: 14px;">
+					<h3 class="active" data-id="theform"><span>用户密码登录<!--账号密码--></span></h3>
+                    
+                        <h3 class="smrzTab" style="display: none" data-id="smrz"><span>实名认证登录</span></h3><!--实名认证登录-->
+                    
+					
+					
+				</div>
+
+				
+
+                
+                    <div id="smrz" class="tabbox myfield smrz" style="padding-top: 20px;display: none">
+                        <div>
+                            <form id="smrzForm" class="">
+                                <fieldset>
+                                    <div class="smrzBox">
+                                        生成二维码
+                                        <p class="son" id="qrcode">
+                                            <input type="hidden" id="SMRZAppid" value="20843963f89b3072788f7fe75a5d9322">
+                                            <input type="hidden" id="SMRZSeq" value="0">
+                                        </p>
+                                    </div>
+                                    <div style="display: flex; align-items: flex-start; color: #2e2e3f; text-align: left;">
+                                        <input type="checkbox" name="singleLogin_SMRZ" style="margin-top: 5px;">
+                                        <span style="margin-left: 8px; line-height: 1.6;">
+                                                本次登录使用信任浏览器访问校内其他系统时不必再输入账号密码（统一登录），
+                                                <span style="color:#8b0000;">为了您的账号安全，使用完请关闭本浏览器。</span>
+                                            </span>
+                                    </div>
+                                    <div style="text-align: left; padding: 0 20px; margin-top: 30px; font-size: 14px; line-height: 1.8; color: #333;">
+                                        <div style="margin-bottom: 8px;">请使用“国家网络身份认证”APP扫码。具体操作请参考<a href="/res/pdf/SMRZ_guide_cn.pdf" target="_blank" style="color: #007bff; text-decoration: underline;">使用说明</a>。</div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                
+
+				<div id="root" class="tabbox myfield wxyzmdl" style="padding-top: 20px;display: none"></div>
+				<form id="theform" class="form-signin tabbox show" method="post" action="/do/off/ui/auth/login/check">
+					<div class="form-group">
+						<label for="inputUsername" class="sr-only">用户名</label>
+						<input type="text" id="i_user" class="form-control" value="" placeholder="学号、工作证号或账号 "  autofocus name="i_user">
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="sr-only">密码</label>
+						<input type="password" id="i_pass" class="form-control" placeholder="密码"  onkeydown="keyLogin();">
+						<input type="hidden" id="sm2pass" name="i_pass" >
+						<div style="display: none;visibility:hidden"  id="sm2publicKey">04d0c9e1ae89279fe05b435d63e3eba437bf510e09da5f71558974a19dc596724227f08dc2fc6e74bbb9d8b468d4dd5205e9b6793a3bbc48df3fdf219b3ea140e3</div>
+
+						<a href="/f/recovery/password/reset"><span id="helpBlock" class="help-block forgot-password">忘记密码</span></a>
+					</div>
+					
+					<div style="display: flex; align-items: flex-start; color: #2e2e3f; text-align: left;">
+						<input type="checkbox" name="singleLogin"  style="margin-top: 5px;">
+						<span style="margin-left: 8px; line-height: 1.6;">
+                                    本次登录使用信任浏览器访问校内其他系统时不必再输入账号密码（统一登录），<span style="color:#8b0000;"">为了您的账号安全，使用完请关闭本浏览器。</span>
+                                </span>
+						</input>
+					</div>
+					<input type="hidden" name="fingerPrint" id="fingerPrint">
+					<input type="hidden" name="fingerGenPrint" id="fingerGenPrint">
+					<input type="hidden" name="fingerGenPrint3" id="fingerGenPrint3">
+					<input type="hidden" name="deviceName" id="deviceName">
+					<div id="c_code" class="form-group hidden">
+						<label for="inputc" class="sr-only"></label>
+						<input type="text" id='i_code' class="form-control" style="width: 60%;float: left;" placeholder="图形验证码" name="i_captcha" >
+						<img id="captcha" width="60" height="45" style="margin-left: 10px;cursor: pointer;float: left;"  class="left" onclick="refreshCaptcha()">
+						<i class="glyphicon glyphicon-refresh" style="cursor: pointer;margin-top: 15px;" onclick="refreshCaptcha()"></i>
+						<i id="captchaIcon" class="glyphicon hidden" style="margin-top: 15px;" ></i>
+					</div>
+					<div style="margin-top: 25px;">
+						<a class="btn btn-lg btn-primary btn-block" type="button" onclick='doLogin(); return false;'>登录</a>
+					</div>
+				</form>
+			</div>
+
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+	<div class="row footer">
+    <div class="col-md-3"></div>
+    <div class="col-md-3"><span><i class="glyphicon glyphicon-phone-alt"></i>&nbsp;<a href="tel:01062784859">010-62784859</a> </span></div>
+    <div class="col-md-3"><span><i class="glyphicon glyphicon-envelope"></i>&nbsp;<a href="mailto:its@tsinghua.edu.cn">its@tsinghua.edu.cn</a></span></div>
+    <div class="col-md-3"></div>
+</div>
+
+</div>
+</body>
+<script type="text/javascript">
+    var smrzSysm = "请使用“国家网络身份认证”APP扫码。具体操作请参考"
+    var smrzUserGuide = "使用说明"
+    var smrzQrcodeExpired = "二维码已过期"
+    var clickToFlash = "点击刷新"
+    var smrzjuhao = "。"
+    var mianmitishi_tydl = "本次登录使用信任浏览器访问校内其他系统时不必再输入账号密码（统一登录），"
+    var mianmitishi_zhaq = "为了您的账号安全，使用完请关闭本浏览器。"
+    var smrz_login_not_found_info = "实名认证扫描登录失败。请先用账号+密码登录,并绑定实名认证信息以启用扫码登录。"
+    var smrzSysmPdf = "/res/pdf/SMRZ_guide_cn.pdf"
+
+    if($('#eng_cnlanguage').val() == 'zh_CN'){$('#locale_english').show()}
+	if($('#eng_cnlanguage').val() == 'en_US'){$('#locale_zhongwen').show()}
+	function changeLanguage(id){
+		if(id === "locale_english"){
+			var locale_url = window.location.href;
+			$('#locale-url').val(locale_url)
+			$('#locale-locale').val('en_US');
+			$('#locale-form').submit();
+		}
+		if(id === "locale_zhongwen"){
+			var locale_url = window.location.href;
+			$('#locale-url').val(locale_url)
+			$('#locale-locale').val('zh_CN');
+			$('#locale-form').submit();
+		}
+	}
+</script>
+</html>
+<script type="text/javascript" src="/res/selfservice/tabshowclick.js?v=20260207071029"></script>
+<script type="text/javascript" src="/res/selfservice/finger3.js?v=20260207071029"></script>
+
+
+
+    <script src="/ui/auth/js/smrzQ.js"></script>
+
+<script>
+	var fingerStr = fingerprintUtil.getFingers();
+	$("#fingerPrint").val(fingerStr);
+	$("#deviceName").val(userAgentUtil.getUserAgentName());
+</script>

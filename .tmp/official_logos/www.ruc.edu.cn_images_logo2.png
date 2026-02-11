@@ -1,0 +1,49 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>404</title>
+</head>
+<style>
+  body{margin:auto;background:#fff;font-family:'微软雅黑',Arial;}
+  .l-conter{
+    width: 72.91666%; margin: 0 auto; min-height: 100vh; position: relative; padding-top: 56px; box-sizing: border-box;
+  }
+  .l-conter .logo{height: 44px; position: relative; }
+  .l-conter .logo img{position: absolute; width: auto; height: 100%;}
+  .l-conter .inner{position: absolute; left: 0;right: 0;top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%);}
+  .l-conter .inner .img{text-align: center;}
+  .l-conter .inner .img img{max-width: 50%;}
+  .l-conter .inner .h1{text-align: center; font-size: 32px; color: 333; margin-top: 20px; font-weight: bold;}
+  .l-conter .inner .h3 span{margin-left: 20px;}
+  .l-conter .inner .text{font-size: 20px; line-height: 2; padding: 0 25%; margin-top: 40px; color: #333;}
+  .l-conter .inner .text a{text-decoration: none; color: #AE0E29;}
+  .l-conter .inner .text a + a{margin-left: 20px;}
+  .l-conter .inner .text a.btn{ background-color: #AE0E29; color: #fff; padding: 10px 22px; border-radius: 30px;}
+  @media (max-width:1700px) {
+    .l-conter{width: auto; margin: 0 40px; padding-top: 40px;}
+    .l-conter .logo{height: 40px;}
+    .l-conter .inner .img img{max-width: 30%;}
+    .l-conter .inner .h1{font-size: 30px;}
+    .l-conter .inner .text{margin-top: 20px; font-size: 18px; line-height: 1.8;}
+    .l-conter .inner .text a.btn{padding: 5px 15px;}
+  }
+  </style>
+<body>
+  <div class="l-conter">
+<!--    <div class="logo"><a href="https://www.fractal-technology.com" target="_blank"><img src="/Public/static/images/tipimgs/logo.png" alt=""></a></div>-->
+    <div class="inner">
+      <div class="img"><img src="/404.jpg" alt=""></div>
+      <div class="h1">很抱歉，您查找的页面不存在</div>
+      <div class="text">
+        <div class="t1">您可以：</div>
+        <div class="ul">
+          <div class="li">1. 检查访问的网页地址是否正确,或稍后重新打开页面尝试</div>
+          <div class="li">2. 去其他地方逛逛：<a href="https://www.ruc.edu.cn/">网站首页</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

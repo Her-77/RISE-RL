@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- *************************************************************************
+    **************************   STYLE SHEET   *******************************
+    ************************************************************************** -->
+
+    <link href="/Content/newindex/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/newindex/css/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+
+    <!--[if IE 7 ]>    <html class= "ie7"> <![endif]-->
+    <!--[if IE 8 ]>    <html class= "ie8"> <![endif]-->
+    <!--[if IE 9 ]>    <html class= "ie9"> <![endif]-->
+    <!--[if lt IE 9]>
+       <script>
+          document.createElement('header');
+          document.createElement('nav');
+          document.createElement('section');
+          document.createElement('article');
+          document.createElement('aside');
+          document.createElement('footer');
+       </script>
+    <![endif]-->
+
+    <title>国科大-综合信息网</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+
+    <!-- *************************************************************************
+    *****************                FAVICON               ********************
+    ************************************************************************** -->
+
+    <link rel="shortcut icon" href="/Content/newindex/img/favicon.png" />
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+
+    <link rel="shortcut icon" href="/Content/newindex/img/favicon.png" />
+    <!--**//字体ICON//**-->
+    <link rel="stylesheet" href="/Content/newindex/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/newindex/css/new.css" />
+
+
+
+
+    <!-- *************************************************************************
+    **************************        JS       *******************************
+    ************************************************************************** -->
+    <script type="text/javascript" src="/Content/newindex/js/jquery.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/new.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/hoverIntent.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/jquery.sfmenu.js"></script>
+    <!--<script type="text/javascript" src="/Content/newindex/js/retina.js"></script>-->
+    <script type="text/javascript" src="/Content/newindex/js/custom.js"></script>
+    <script type="text/javascript" src="/Content/newindex/js/jquery.fancybox.js"></script>
+    
+    <script src="/Plugin/layer/layer.min.js"></script>
+
+    <!-- *************************************************************************
+    ******************     THESE ARE THE SCRIPT CALLS    ***********************
+    ************************************************************************** -->
+    <script type="text/javascript">
+        jQuery(window).load(function () {
+
+            jQuery('.slider').flexslider();
+
+            // Create the dropdown base
+            jQuery("<select />").appendTo(".topmenu");
+
+            // Create default option "Go to..."
+            jQuery("<option />", {
+                "selected": "selected",
+                "value": "",
+                "text": "导航菜单"
+            }).appendTo(".topmenu select");
+
+            // Populate dropdown with menu items
+            jQuery(".topmenu a").each(function () {
+                var el = jQuery(this);
+                jQuery("<option />", {
+                    "value": el.attr("href"),
+                    "text": el.text()
+                }).appendTo(".topmenu select");
+            });
+
+            // To make dropdown actually work
+            // To make more unobtrusive: http://css-tricks.com/4064-unobtrusive-page-changer/
+            jQuery(".topmenu select").change(function () {
+                window.location = jQuery(this).find("option:selected").val();
+            });
+
+            jQuery('.fancybox').fancybox();
+
+
+        });
+        function showSwf(t, u) {
+            $.layer({
+                type: 2,
+                title: t,
+                iframe: { src: u },
+                area: ['760px', '480px'],
+                offset: ['100px', '']
+            });
+        }
+    </script>
+    
+</head>
+<body>
+    
+<div class="top_wrapperred">
+    <!-- Start of content wrapper -->
+    <div class="content_wrapper">
+        <!-- Start of topsubmenu -->
+        <div class="topsubmenu">
+            <ul class="user">
+                <li><a class="" href="/index.html"><i class="fa fa-fw  fa-user"></i> 学生</a></li>
+                <li><a class="active" href="/staff.html"><i class="fa fa-fw fa-user-secret"></i> 教职工</a></li>
+            </ul>
+        </div><!-- End of topsubmenu -->
+    </div><!-- End of content wrapper -->
+    <!-- Clear Fix --><div class="clear"></div>
+</div><!-- End of top wrapper -->
+<!-- Start of header wrapper -->
+<div id="header_wrapper">
+    <!-- Start of content wrapper -->
+    <div class="headerX">
+        <div class="content_wrapper">
+            <!-- Start of logo -->
+            <div id="logo">
+                    <a href="/staff.html"><img src="/Content/newindex/img/toplogo.png" width="349" height="72" alt="Business Essentials" /></a>
+            </div><!-- End of logo --> 
+        </div>
+        <!-- Start of top menu wrapper -->
+        <div class="topmenuwrapperRED content_wrapper">
+            <!-- Start of topmenu -->
+            <nav class="topmenu">
+                <ul class="sf-menu">
+                        <li>
+                            <a class="active" href="javascript:">学籍学工</a>
+                            <ul class="sub-menu">
+                                            <li><a href="/home/info/0e9676ea-8f58-4ffb-9023-f2cac1e36565" title="本栏目提供学生管理规定的详细内容">学生管理</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FWmhhb3NoZW5n%2F&amp;cname=%25d5%25d0%25c9%25fa%25b9%25dc%25c0%25ed');" title="用于处理硕士招生、博士招生、留学生招生、博士网上报名等招生业务工作。通过门户登录进入招生管理系统。
+  招生管理系统主要包含博士招生、硕士招生、博士网上报名、留学生报名、硕士推荐免试生报名5个模块，主要用于处理硕士招生、博士招生、留学生招生、博士网上报名等招生业务工作。研究生院和各研究所通过招生系统完成招生计划、专业目录编辑审核、网上招生、报考、初试、复试、调剂、录取八个阶段的业务工作，并通过应用招生系统的辅助功能完成数据上报、在线业务交流、数据统计和报表打印等工作。同时实现与其它系统的数据对接。，需登录进入该系统进行相应操作">招生管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FQmFvZGFv%2F&amp;cname=%25d0%25c2%25c9%25fa%25b1%25a8%25b5%25bd');" title="提供迎新信息服务和迎新手续办理业务。通过门户登录进入集中报到系统。
+  新生报到可利用集中报到系统进行，集中报到系统为国科大参加北京集中教学的新生提供迎新信息服务和迎新手续办理业务。
+
+     学生来校前的业务包括分院系、分班、安排住宿、发布迎新通知，安排英语入学考试考场、分配邮箱、上网账号等基础性工作。学生来校之前，可以通过迎新服务网提前了解新生报到的各项通知，了解本人住宿床位，学习地点，英语入学考试考场安排，到校路线等，同时提交本人乘车的乘车信息，便于报到当天学校组织的专车接送。，需登录进入该系统进行相应操作">新生报到</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FWHVlamk%3D%2F%20&amp;cname=%25d1%25a7%25bc%25ae%25b9%25dc%25c0%25ed');" title="通过门户直接登录进入学籍系统，需登录进入该系统进行相应操作">学籍管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FeGluY3A%3D%2F&amp;cname=%25b3%25f6%25b9%25fa%25b3%25f6%25be%25b3');" title="教工的出国出境规定请登录门户在协同工作平台的最新公文中查看，校发际字〔2013〕46 号。，需登录进入该系统进行相应操作">出国出境</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FeGluY3A%3D%2F&amp;cname=%25bc%25cd%25c2%25c9%25b4%25a6%25b7%25d6');" title="有关教工纪律处分方面的规定，请登录协同办公平台搜索查看。，需登录进入该系统进行相应操作">纪律处分</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FSFNCTA%3D%3D%2F%20&amp;cname=%25bb%25d8%25cb%25f9%25b0%25ec%25c0%25ed');" title="登录门户进入回所办理系统，需登录进入该系统进行相应操作">回所办理</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FaHVrb3VndWFubGk%3D%2F&amp;cname=%25bb%25a7%25bc%25ae%25b9%25dc%25c0%25ed');" title="登录门户进入户籍管理系统，需登录进入该系统进行相应操作">户籍管理</a>
+                                        </li>
+                                            <li><a href="/home/newslist/3b3ebc15-5cd5-4bb0-ae79-a75482d200f9" title="">规章制度</a></li>
+                                            <li><a href="/home/newslist/423e8756-c4d3-4385-aa81-259de818f567" title="">常见问题</a></li>
+                                            <li><a href="/home/newslist/913c8c30-6042-4ad4-9320-7f49da2159f4" title="">表格下载</a></li>
+                                            <li><a href="/home/newslist/a7014acc-f93a-47e0-be1f-e6d546d3cf36" title="">学生奖助</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:">教务教学</a>
+                            <ul class="sub-menu">
+                                            <li><a href="/home/newslist/86371551-d754-4937-9d2f-fb0b15e1fa0b" title="">规章制度</a></li>
+                                            <li><a href="/home/info/f474db2f-9f64-4335-bf62-83e79ff5f8db" title="开设课程">开设课程</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FTmV3Smlhb3NoaQ%3D%3D%2F&amp;cname=%25bd%25cc%25ca%25a6%25b9%25dc%25c0%25ed');" title="教师管理包含教师信息，教师资格证，教师数据，需登录进入该系统进行相应操作">教师管理</a>
+                                        </li>
+                                            <li><a href="https://jwcg.ucas.ac.cn/sepIndex" title="教务管理包含课程开设，成绩管理，教学资源配置等有关信息。教务管理系统面向学生、导师、管理人员，细分为三类：选课系统、集中教务、所级教务。选课系统为中国科学院大学集中教学学生提供网络选课、课程评估和成绩查询。
+     集中教务主要为中国科学院大学的集中教学提供教务管理，提供课程管理、选课管理、成绩管理、
+     所级教务系统主要为培养单位提供教务管理，提供课程、选课、评估、成绩管理，提供查询课程大纲、课程安排、选课情况、课程评估结果和成绩分布情况功能，提供学生的网络选课、课程评估和成绩查询。">教务管理</a></li>
+                                            <li><a href="/home/newslist/8d52adb3-5d80-40d5-a17a-58307f7ce1f9" title="奖教金">奖教金</a></li>
+                                            <li><a href="/home/newslist/c438c8b7-2525-461a-b7f6-9e6237586d3f" title="">常见问题</a></li>
+                                            <li><a href="/home/newslist/35788386-de63-4fcb-97ca-44444049b8a7" title="">表格下载</a></li>
+                                            <li><a href="/home/info/0be51b3f-5637-44ad-84eb-06dda129f3cf" title="">自助办成绩单</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:">培养与学位</a>
+                            <ul class="sub-menu">
+                                            <li><a href="/home/info/37573272-5919-454d-afc2-333da1edd844" title="点击进入页面查看详细信息">研究生培养</a></li>
+                                            <li><a href="https://bkjy.ucas.ac.cn/index.php/2020-11-10-07-19-47" title="点击进入本科教育网阅读详细内容">本科生培养</a></li>
+                                            <li><a href="https://www.ucas.ac.cn/zzjg/pydw/index.htm" title="培养机构">培养机构</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FUGVpeWFuZ0d1YW5saQ%3D%3D%2F%20&amp;cname=%25c5%25e0%25d1%25f8%25b9%25dc%25c0%25ed');" title="培养管理，需登录进入该系统进行相应操作">培养管理</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FWHVld2Vp%2F%20&amp;cname=%25d1%25a7%25ce%25bb%25b9%25dc%25c0%25ed');" title="学位管理，需登录进入该系统进行相应操作">学位管理</a>
+                                        </li>
+                                            <li><a href="/Home/Info/9a408b61-a9b6-460f-a3c6-1ac9c7458223" title="学位授予">学位授予</a></li>
+                                            <li><a href="/home/info/b94d8853-a3bb-44e1-b9b6-35163e4c9b70" title="">优博论文</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FWHVla2VKaWFuc2hl%2F&amp;cname=%25d1%25a7%25bf%25c6%25bd%25a8%25c9%25e8');" title="通过登录信息门户进入学科建设系统，需登录进入该系统进行相应操作">学科建设</a>
+                                        </li>
+                                            <li><a href="/home/newslist/65a6880f-ccd6-4cb5-a8bd-f38db31bafc9" title="">规章制度</a></li>
+                                            <li><a href="/home/newslist/d7a481d1-1685-4c90-bd5e-bfdeead7cfe0" title="">工作流程</a></li>
+                                            <li><a href="/home/newslist/5f4c6956-506d-4214-831e-1ea09870cf00" title="">表格下载</a></li>
+                                            <li><a href="/home/newslist/806c3cb7-0bb1-4cf4-9522-58c401dae701" title="">常见问题</a></li>
+                                            <li><a href="http://yjsgl.ucas.ac.cn/" title="校部研究生管理办公室网站">校本部研究生</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:">学校资源</a>
+                            <ul class="sub-menu">
+                                            <li><a href="/home/info/65f93d08-2b83-461a-84a6-4c90d5025536" title="">学生救助</a></li>
+                                            <li><a href="https://www.ucas.ac.cn/zzjg/yxzx/index.htm" title="">院系中心</a></li>
+                                            <li><a href="https://www.ucas.ac.cn/xxgk/glzc/index.htm" title="">管理支撑</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FeGluY3A%3D%2F&amp;cname=%25d0%25ad%25cd%25ac%25b9%25a4%25d7%25f7%25c6%25bd%25cc%25a8');" title="登录信息门户进入协同工作平台，需登录进入该系统进行相应操作">协同工作平台</a>
+                                        </li>
+                                            <li><a href="http://lib.ucas.ac.cn/" title="链接到中国科学院大学教学资料中心">图书论文</a></li>
+                                            <li><a href="http://www.ucasef.cn/" title="链接到基金会网站">基金会</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);" onclick="showSwf('', '/Home/SepLoginFrame?str=%2FSml4dWppYW95dQ%3D%3D%2F&amp;cname=%25b5%25b3%25d0%25a3%25b9%25dc%25c0%25ed');" title="需登录进入党校管理系统，需登录进入该系统进行相应操作">党校管理</a>
+                                        </li>
+                                            <li><a href="/home/info/6b9e95dc-5785-4eee-b25f-1f884698cfc3" title="">资源下载</a></li>
+                                            <li><a href="https://inc.ucas.ac.cn/index.php/zh/" title="提供网络信息综合服务">IT服务</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:">校园服务</a>
+                            <ul class="sub-menu">
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/news.html?typeId=01" title="">新闻公告</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/news.html?typeId=02" title="正在建设中">机构设置</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/news.html?typeId=03" title="">规章制度</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/downLoad.html" title="正在建设中">资料下载</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/news.html?typeId=05" title="">常见问题</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/news.html?typeId=06" title="">服务信息</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/fwjd/index" title="">服务监督</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/znbx/index" title="">网络报修</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/market.html" title="">跳蚤市场</a></li>
+                                            <li><a href="https://service.ucas.ac.cn/gkdHall/lost.html" title="">失物招领</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:">财务事项</a>
+                            <ul class="sub-menu">
+                                            <li><a href="/home/info/66bfa0f0-35f8-4e0f-9cc8-ebd528aefbd9" title="">报销流程</a></li>
+                                            <li><a href="/Home/Info/9806e082-3d73-40f6-a2c3-661d8336144c" title="">下载专区</a></li>
+                            </ul>
+                        </li>
+                </ul>
+            </nav><!-- End of topmenu -->
+            <!-- Clear Fix --><div class="clear"></div>
+        </div><!-- End of top menu wrapper -->
+    </div><!-- End of content wrapper -->
+    <!-- Start of slider wrapper -->
+    <section class="slider_wrapper">
+        <!-- Start of slider -->
+        <section class="slider400">
+            <ul class="slides">
+                <li>
+                    <!-- Start of one third first -->
+                    <div class="bannerListred">
+
+                    </div><!-- End of one third first -->
+                    <!-- Start of two third -->
+                </li>
+            </ul>
+        </section><!-- End of slider -->
+        <!-- Start of clear fix --><div class="clear"></div>
+    </section><!-- End of slider wrapper -->
+    <!-- Clear Fix --><div class="clear"></div>
+</div><!-- End of header wrapper -->
+<!--//  BANNER 上面的登录内容哦//-->
+<!-- Start of message wrapper -->
+<div id="message_wrapper" style="margin-top:0;" >
+    <!-- Start of content wrapper -->
+    <div id="contentwrapper" class="white ListNr">
+    </div>
+    <!-- Clear Fix --><div class="clear"></div>
+</div><!-- End of message wrapper -->
+
+    
+
+<!-- Start of 面包屑 wrapper -->
+<div class="breadcrumb_wrapper">
+
+    <!-- Start of breadcrumb -->
+    <div class="breadcrumb">
+
+        <ul>
+            <li><a href="/index.html">首页</a> &nbsp; / &nbsp;</li>
+                <li>资源下载 &nbsp; / &nbsp;</li>
+                <li>形象标识 </li>
+        </ul>
+    </div><!-- End of breadcrumb -->
+    <!-- Clear Fix --><div class="clear"></div>
+
+</div><!-- End of breadcrumb wrapper -->
+<!-- Start of content wrapper -->
+<div id="contentwrapper">
+
+    <!-- Start of content wrapper -->
+    <div class="content_wrapper ListNr">
+
+        <!-- Start of content right -->
+        <div class="content_right">
+
+            <h2 class="RJtitle">形象标识</h2>
+            <p class="content"><p>1.我校形象标识的版权归中国科学院及中国科学院大学所有；2.未经我校批准或者授权不得擅自使用，否则将视为侵权，为个人学习使用以及课堂教学使用等合理使用的情况除外；3.对于不遵守此声明或者其他违法使用我校形象标识者，我校保留依法追究相关侵权行为人所有法律责任的权利，由此造成的一切后果全部由侵权行为人承担。												</p></p>
+
+            <p class="imagelist">
+                        <div class="imageitem">
+                            <a href="/Content/Upload/2019/7/2.jpg" target="_blank"><img src="/Content/Upload/2019/7/2.jpg" title="1" /></a>
+                            <p style="text-align:center">1</p>
+                        </div>
+            </p>
+                <div class="filebody">
+                    <div class="filedesc">
+                        附件
+                    </div>
+                    <div class="filelist">
+                            <div class="fileitem">
+                                <a href="/Content/Upload/2020/9/1.zip" title="点击下载">中国科学院大学标准Logo下载</a>
+                            </div>
+                    </div>
+                </div>
+        </div><!-- End of content right -->
+        <!-- Start of content left -->
+        <div class="content_left">
+
+
+            <!-- Start of textwidget -->
+            <div class="textwidget">
+                    <h5>资源下载</h5>
+
+            
+<ul>
+            <li class="active"><a href="/Home/Info/6b9e95dc-5785-4eee-b25f-1f884698cfc3">形象标识</a></li>
+            <li class=""><a href="/Home/Info/e1e7b553-14c1-42f3-910a-88d25ebf9c48">PPT模板</a></li>
+            <li class=""><a href="/Home/DetailXuanchuanpian">宣传片</a></li>
+            <li class=""><a href="/home/info/6b9ea9b2-629c-426f-83d2-56b93f8b4178">国科大校旗</a></li>
+            <li class=""><a href="/home/info/1b820306-336c-4f86-a043-e5542337a6f0">国科大月历</a></li>
+</ul>
+            
+
+            </div><!-- End of textwidget -->
+
+        </div><!-- End of content left -->
+
+    </div><!-- End of content wrapper -->
+    <!-- Clear Fix --><div class="clear"></div>
+
+</div><!-- End of content wrapper -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var imgp = "top";
+        $('p.imagelist').hide();
+        if (imgp == "top") {
+            $('p.content').html($('p.imagelist').html() + $('p.content').html());
+        }
+        else {
+            $('p.content').html($('p.content').html() + $('p.imagelist').html());
+        }
+        $('p.imageitem img').each(function () {
+            var maxwidth = 600;
+            if ($(this).width() > maxwidth) {
+                $(this).width(maxwidth);
+            }
+        });
+    });
+</script>
+
+    <!-- Start of copyright wrapper -->
+<div id="copyright_wrapper">
+
+    <!-- Start of content wrapper -->
+    <div class="content_wrapper">
+
+        <!-- Start of copyright message -->
+        <div class="copyright_message">
+            Copyright &copy; 2023年 中国科学院大学 版权所有 地址：北京市石景山区玉泉路19号（甲）邮编 100049 京ICP备<a target="_blank" href="#">07017956</a>
+        </div><!-- End of copyright message -->
+
+
+    </div><!-- End of content wrapper -->
+    <!-- Clear Fix --><div class="clear"></div>
+
+</div><!-- End of copyright wrapper -->
+
+<div style="display:none">
+<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+
+</body>
+</html>
