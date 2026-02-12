@@ -46,6 +46,18 @@ npm run build
 - 工作流会自动设置 `VITE_BASE_PATH=/<仓库名>/`，无需手动改 `base`。
 - 当前是 Hash 路由，刷新不会出现 404 路由问题。
 
+## GitHub 自动同步到 Gitee 私有云
+
+本仓库已内置工作流：`.github/workflows/sync-to-gitee-private.yml`。
+
+1. 在 GitHub 仓库设置两个 Secrets：
+   - `GITEE_PRIVATE_USER`
+   - `GITEE_PRIVATE_TOKEN`
+2. 默认行为：每次 `main` 分支 push 后，自动同步：
+   - `git push gitee-private main`
+   - `git push gitee-private --tags`
+3. 需要同步全部分支时：在 Actions 页面手动运行该工作流，并勾选 `sync_all_branches=true`。
+
 ## 部署到 Gitee Pages（组织仓库）
 
 目标路径示例：`https://zgc-webcompetition.gitee.io/RISE-RL/`

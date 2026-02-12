@@ -1,0 +1,61 @@
+name: Sync GitHub to Gitee Private
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      sync_all_branches:
+        description: Also push all branches to Gitee private
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-gitee-private
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Gitee Private
+        env:
+          GITEE_PRIVATE_USER: ${{ secrets.GITEE_PRIVATE_USER }}
+          GITEE_PRIVATE_TOKEN: ${{ secrets.GITEE_PRIVATE_TOKEN }}
+          GITEE_REMOTE_HOST_PATH: z.gitee.cn:443/web-competition/RISE-RL.git
+          SYNC_ALL_BRANCHES: ${{ inputs.sync_all_branches }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${GITEE_PRIVATE_USER:-}" ] || [ -z "${GITEE_PRIVATE_TOKEN:-}" ]; then
+            echo "Missing secrets: GITEE_PRIVATE_USER / GITEE_PRIVATE_TOKEN"
+            exit 1
+          fi
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          GITEE_REMOTE_URL="https://${GITEE_PRIVATE_USER}:${GITEE_PRIVATE_TOKEN}@${GITEE_REMOTE_HOST_PATH}"
+
+          if git remote get-url gitee-private >/dev/null 2>&1; then
+            git remote set-url gitee-private "${GITEE_REMOTE_URL}"
+          else
+            git remote add gitee-private "${GITEE_REMOTE_URL}"
+          fi
+
+          git push gitee-private main
+          git push gitee-private --tags
+
+          if [ "${SYNC_ALL_BRANCHES:-false}" = "true" ]; then
+            git push gitee-private --all
+          fi
