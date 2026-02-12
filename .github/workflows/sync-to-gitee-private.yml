@@ -34,6 +34,7 @@ jobs:
           GITEE_PRIVATE_USER: ${{ secrets.GITEE_PRIVATE_USER }}
           GITEE_PRIVATE_TOKEN: ${{ secrets.GITEE_PRIVATE_TOKEN }}
           GITEE_REMOTE_HOST_PATH: z.gitee.cn:443/web-competition/RISE-RL.git
+          GITEE_TARGET_BRANCH: ${{ vars.GITEE_TARGET_BRANCH }}
           SYNC_ALL_BRANCHES: ${{ inputs.sync_all_branches }}
           GIT_TERMINAL_PROMPT: 0
         run: |
@@ -68,6 +69,9 @@ jobs:
             git remote add gitee-private "${GITEE_REMOTE_URL}"
           fi
 
+          TARGET_BRANCH="${GITEE_TARGET_BRANCH:-main}"
+          echo "Will push HEAD to remote branch: ${TARGET_BRANCH}"
+
           echo "Checking authenticated access to repository ..."
           if ! timeout 60s git -c http.extraheader="${AUTH_HEADER}" ls-remote gitee-private >/dev/null 2>&1; then
             echo "Authenticated access check failed. Please verify:"
@@ -77,8 +81,8 @@ jobs:
             exit 1
           fi
 
-          if ! timeout 180s git -c http.extraheader="${AUTH_HEADER}" push gitee-private main 2>&1; then
-            echo "Push main failed. Check token permission and network access."
+          if ! timeout 180s git -c http.extraheader="${AUTH_HEADER}" push gitee-private "HEAD:${TARGET_BRANCH}" 2>&1; then
+            echo "Push branch failed. Check token permission, branch policy, and network access."
             exit 1
           fi
 

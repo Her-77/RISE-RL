@@ -59,6 +59,8 @@ npm run build
    - `git push gitee-private --tags`
 3. 需要同步全部分支时：在 Actions 页面手动运行该工作流，并勾选 `sync_all_branches=true`。
 4. 如果 `Push to Gitee Private` 长时间卡住或失败，通常是 GitHub 托管 runner 无法访问 `z.gitee.cn`（内网地址）；此时需要改用内网 `self-hosted runner`。
+5. 若私有云仓库默认分支策略要求 `master`，可在 GitHub 仓库 `Settings -> Secrets and variables -> Actions -> Variables` 新增：
+   - `GITEE_TARGET_BRANCH=master`
 
 ## 部署到 Gitee Pages（组织仓库）
 
