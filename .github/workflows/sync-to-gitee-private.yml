@@ -59,7 +59,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          GITEE_REMOTE_URL="https://${GITEE_PRIVATE_USER}:${GITEE_PRIVATE_TOKEN}@${GITEE_REMOTE_HOST_PATH}"
+          GITEE_REMOTE_URL="https://${GITEE_REMOTE_HOST_PATH}"
+          AUTH_HEADER="Authorization: Basic $(printf '%s:%s' "${GITEE_PRIVATE_USER}" "${GITEE_PRIVATE_TOKEN}" | base64 | tr -d '\n')"
 
           if git remote get-url gitee-private >/dev/null 2>&1; then
             git remote set-url gitee-private "${GITEE_REMOTE_URL}"
@@ -67,18 +68,27 @@ jobs:
             git remote add gitee-private "${GITEE_REMOTE_URL}"
           fi
 
-          if ! timeout 180s git push gitee-private main; then
+          echo "Checking authenticated access to repository ..."
+          if ! timeout 60s git -c http.extraheader="${AUTH_HEADER}" ls-remote gitee-private >/dev/null 2>&1; then
+            echo "Authenticated access check failed. Please verify:"
+            echo "1) GITEE_PRIVATE_USER is correct login name."
+            echo "2) GITEE_PRIVATE_TOKEN is valid and has repository write permission."
+            echo "3) Repository path exists: ${GITEE_REMOTE_HOST_PATH}"
+            exit 1
+          fi
+
+          if ! timeout 180s git -c http.extraheader="${AUTH_HEADER}" push gitee-private main 2>&1; then
             echo "Push main failed. Check token permission and network access."
             exit 1
           fi
 
-          if ! timeout 180s git push gitee-private --tags; then
+          if ! timeout 180s git -c http.extraheader="${AUTH_HEADER}" push gitee-private --tags 2>&1; then
             echo "Push tags failed. Check token permission."
             exit 1
           fi
 
           if [ "${SYNC_ALL_BRANCHES:-false}" = "true" ]; then
-            if ! timeout 300s git push gitee-private --all; then
+            if ! timeout 300s git -c http.extraheader="${AUTH_HEADER}" push gitee-private --all 2>&1; then
               echo "Push all branches failed."
               exit 1
             fi
