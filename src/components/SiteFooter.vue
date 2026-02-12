@@ -19,11 +19,14 @@ const year = new Date().getFullYear();
         <p>{{ text({ zh: '项目负责人邮箱：', en: 'Lead email: ' }) }}<a :href="`mailto:${projectMeta.contactEmail}`">{{ projectMeta.contactEmail }}</a></p>
       </div>
       <div>
-        <h4>{{ text({ zh: '访问地址', en: 'Deployment Path' }) }}</h4>
+        <h4>{{ text({ zh: '地址', en: 'Address' }) }}</h4>
         <p>
-          <a href="https://zgc-webcompetition.gitee.io/RISE-RL/" target="_blank" rel="noreferrer">
-            https://zgc-webcompetition.gitee.io/RISE-RL/
-          </a>
+          {{
+            text({
+              zh: '北京市海淀区大牛房二环路17号院海淀信息科技园C5栋',
+              en: 'Building C5, Haidian Information Technology Park, Courtyard No. 17, DaniuFang 2nd Ring Road, Haidian District, Beijing',
+            })
+          }}
         </p>
       </div>
     </div>
