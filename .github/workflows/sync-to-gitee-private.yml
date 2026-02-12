@@ -44,6 +44,11 @@ jobs:
             exit 1
           fi
 
+          if [[ "${GITEE_PRIVATE_USER}" == http* ]] || [[ "${GITEE_PRIVATE_USER}" == */* ]]; then
+            echo "GITEE_PRIVATE_USER should be plain username only, for example: Tianhe"
+            exit 1
+          fi
+
           echo "Checking network reachability to z.gitee.cn:443 ..."
           if ! timeout 20s bash -lc 'curl -fsS --connect-timeout 10 --max-time 20 https://z.gitee.cn/ >/dev/null'; then
             echo "Cannot reach z.gitee.cn from GitHub-hosted runner."

@@ -52,7 +52,7 @@ npm run build
 本仓库已内置工作流：`.github/workflows/sync-to-gitee-private.yml`。
 
 1. 在 GitHub 仓库设置两个 Secrets：
-   - `GITEE_PRIVATE_USER`
+   - `GITEE_PRIVATE_USER`（仅用户名，如 `Tianhe`，不要填 `https://z.gitee.cn/Tianhe`）
    - `GITEE_PRIVATE_TOKEN`
 2. 默认行为：每次 `main` 分支 push 后，自动同步：
    - `git push gitee-private main`
