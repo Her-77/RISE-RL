@@ -97,7 +97,8 @@ npm run build
 
 - `vite.config.ts` 的 `base` 支持自动策略：
   - GitHub Actions 构建时：自动使用 `/<仓库名>/`。
-  - 本地构建默认：`/RISE-RL/`（可通过 `VITE_BASE_PATH` 覆盖）。
+  - 本地构建默认：`./`（相对路径，适配 Gitee 私有云的“分支+目录”部署）。
+  - 可通过 `VITE_BASE_PATH` 覆盖（例如：`/RISE-RL/`）。
 - 当前使用 Hash 路由，刷新不会触发服务端路由 404。
 - 若改为 History 路由，需额外配置服务端回退规则。
 

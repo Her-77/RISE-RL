@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const defaultBase = '/RISE-RL/'
+const defaultBase = './'
 const envBase = process.env.VITE_BASE_PATH
 const githubRepo = process.env.GITHUB_REPOSITORY?.split('/')[1]
 const githubBase = githubRepo ? `/${githubRepo}/` : defaultBase
