@@ -22,6 +22,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,11 +35,19 @@ jobs:
           GITEE_PRIVATE_TOKEN: ${{ secrets.GITEE_PRIVATE_TOKEN }}
           GITEE_REMOTE_HOST_PATH: z.gitee.cn:443/web-competition/RISE-RL.git
           SYNC_ALL_BRANCHES: ${{ inputs.sync_all_branches }}
+          GIT_TERMINAL_PROMPT: 0
         run: |
           set -euo pipefail
 
           if [ -z "${GITEE_PRIVATE_USER:-}" ] || [ -z "${GITEE_PRIVATE_TOKEN:-}" ]; then
             echo "Missing secrets: GITEE_PRIVATE_USER / GITEE_PRIVATE_TOKEN"
+            exit 1
+          fi
+
+          echo "Checking network reachability to z.gitee.cn:443 ..."
+          if ! timeout 20s bash -lc 'curl -fsS --connect-timeout 10 --max-time 20 https://z.gitee.cn/ >/dev/null'; then
+            echo "Cannot reach z.gitee.cn from GitHub-hosted runner."
+            echo "If z.gitee.cn is intranet-only, use a self-hosted runner in your internal network."
             exit 1
           fi
 
@@ -53,9 +62,19 @@ jobs:
             git remote add gitee-private "${GITEE_REMOTE_URL}"
           fi
 
-          git push gitee-private main
-          git push gitee-private --tags
+          if ! timeout 180s git push gitee-private main; then
+            echo "Push main failed. Check token permission and network access."
+            exit 1
+          fi
+
+          if ! timeout 180s git push gitee-private --tags; then
+            echo "Push tags failed. Check token permission."
+            exit 1
+          fi
 
           if [ "${SYNC_ALL_BRANCHES:-false}" = "true" ]; then
-            git push gitee-private --all
+            if ! timeout 300s git push gitee-private --all; then
+              echo "Push all branches failed."
+              exit 1
+            fi
           fi

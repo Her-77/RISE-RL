@@ -1,6 +1,6 @@
 # RISE-RL 项目组官网
 
-RISE-RL（Reasoning Intrinsic Self-Evolving Exploration）项目组官网源码。  
+RISE-RL（Reasoning, Intrinsic, Self-Evolving, Exploration）项目组官网源码。
 主题：**大模型应用驱动下的大规模强化学习算法研究与实践**。
 
 ## 技术栈
@@ -43,6 +43,7 @@ npm run build
 5. 发布成功后访问：`https://<你的GitHub用户名>.github.io/<仓库名>/`。
 
 说明：
+
 - 工作流会自动设置 `VITE_BASE_PATH=/<仓库名>/`，无需手动改 `base`。
 - 当前是 Hash 路由，刷新不会出现 404 路由问题。
 
@@ -57,6 +58,7 @@ npm run build
    - `git push gitee-private main`
    - `git push gitee-private --tags`
 3. 需要同步全部分支时：在 Actions 页面手动运行该工作流，并勾选 `sync_all_branches=true`。
+4. 如果 `Push to Gitee Private` 长时间卡住或失败，通常是 GitHub 托管 runner 无法访问 `z.gitee.cn`（内网地址）；此时需要改用内网 `self-hosted runner`。
 
 ## 部署到 Gitee Pages（组织仓库）
 
