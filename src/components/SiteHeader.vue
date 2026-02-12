@@ -51,7 +51,7 @@ const brandTitle = computed(() =>
   locale.value === 'zh' ? 'RISE-RL 项目组' : 'RISE-RL Research Group',
 );
 
-const brandSubtitle = computed(() => 'Reasoning Intrinsic Self-Evolving Exploration');
+const brandSubtitle = computed(() => 'Reasoning, Intrinsic, Self-Evolving, Exploration');
 
 const headerLogos = [
   {

@@ -8,8 +8,8 @@ export const projectMeta = {
     en: 'Research and Practice of Large-Scale Reinforcement Learning Driven by LLM Applications',
   } satisfies LocalizedText,
   acronymExpansion: {
-    zh: 'Reasoning Intrinsic Self-Evolving Exploration',
-    en: 'Reasoning Intrinsic Self-Evolving Exploration',
+    zh: 'Reasoning, Intrinsic, Self-Evolving, Exploration',
+    en: 'Reasoning, Intrinsic, Self-Evolving, Exploration',
   } satisfies LocalizedText,
   shortDescription: {
     zh: '围绕大模型推理与对齐训练，推进可规模化、可复现、可解释的强化学习算法研究与工程落地。',
